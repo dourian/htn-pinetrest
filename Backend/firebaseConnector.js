@@ -70,14 +70,13 @@ async function getCities(db) {
 }
 
 const storageRef = ref(storage, 'shinguh1.png');
-const bytes = new Uint8Array([0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x2c, 0x20, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x21]);
 
-const handleUpload = () => {
+const handleUpload = (file) => {
   //if (!file) {
      // alert("Please upload an image first!");
   //}
   // 'file' comes from the Blob or File API
-  uploadBytes(storageRef, bytes).then((snapshot) => { 
+  uploadBytes(storageRef, file).then((snapshot) => { 
     console.log('Uploaded a blob or file!');
     getDownloadURL(snapshot.ref).then((url) => {
       console.log(url);
