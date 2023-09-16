@@ -49,6 +49,7 @@ function App() {
         <div className="container z-50">
           <input type="file" onChange={handleChange} accept="/image/*" />
           <button onClick={handleUpload}>Upload to Firebase</button>
+          <button onClick={() => { setDisplayForm(false) }}>X</button>
         </div>
       }
     </div>
