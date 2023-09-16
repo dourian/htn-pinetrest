@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getStorage, ref } from "firebase/storage";
+import { getStorage, ref,  getDownloadURL } from "firebase/storage";
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
@@ -25,19 +25,19 @@ const storageRef = ref(storage);
 const shinjiRef = ref(storage, 'shinguh.png');
 getCities(db);
 
-
-// Get a list of cities from your database
-async function getCities(db) {
-  const posts = collection(db, 'posts');
-  const citySnapshot = await getDocs(posts);
-  const cityList = citySnapshot.docs.map(doc => doc.data());
-  console.log(cityList);
-}
-
 // Get the download URL
 getDownloadURL(shinjiRef)
   .then((url) => {
+    console.log(url);
     // Insert url into an <img> tag to "download"
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = (event) => {
+      const blob = xhr.response;
+    };
+    xhr.open('GET', url);
+    xhr.send();
+    
   })
   .catch((error) => {
     // A full list of error codes is available at
@@ -60,3 +60,12 @@ getDownloadURL(shinjiRef)
         break;
     }
   });
+
+  // Get a list of cities from your database
+async function getCities(db) {
+  const posts = collection(db, 'posts');
+  const citySnapshot = await getDocs(posts);
+  const cityList = citySnapshot.docs.map(doc => doc.data());
+  console.log(cityList);
+  console.log(getDownloadURL);
+}
