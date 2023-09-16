@@ -34,24 +34,28 @@ function App() {
 
   return (
     <div className="App">
-
       <TrailMap />
 
-      {!displayform &&
+      {!displayform && (
         <div>
-          <button onClick={() => { setDisplayForm(true) }} className="absolute bottom-0 right-0 rounded-full  bg-sky-500/100 h-16 w-16 ...">
+          <button
+            onClick={() => {
+              setDisplayForm(true);
+            }}
+            className="absolute bottom-0 right-0 rounded-full  bg-sky-500/100 h-16 w-16 ..."
+          >
             +
           </button>
         </div>
-      }
+      )}
 
-      {displayform &&
+      {displayform && (
         <div className="container z-50">
           <input type="file" onChange={handleChange} accept="/image/*" />
           <button onClick={handleUpload}>Upload to Firebase</button>
           <button onClick={() => { setDisplayForm(false) }}>X</button>
         </div>
-      }
+      )}
     </div>
   );
 }
