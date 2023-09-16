@@ -58,7 +58,7 @@ const PlacesAutocomplete = ({ setSelected }) => {
   );
 };
 
-export default function MapWrapper() {
+export default function MapWrapper({currentLat, setCurrentLat, currentLng, setCurrentLng}) {
   const libraries = ["places"];
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -79,7 +79,7 @@ export default function MapWrapper() {
 
   const containerStyle = {
     width: "100vw",
-    height: "90vh",
+    height: "100vh",
   };
   const center = {
     lat: 43.473176,
@@ -121,7 +121,7 @@ export default function MapWrapper() {
         defaultZoom={3}
         onLoad={onLoad}
         onUnmount={onUnmount}
-        onClick={() => setActiveMarker(null)}
+        onClick={(ev) => {setActiveMarker(null); setCurrentLat(ev.latLng.lat()); setCurrentLng(ev.latLng.lng())}}
         options={{ disableDefaultUI: true, mapId: "10561e5854fbba2e" }}
       >
         {markers?.map((markerinfo) => (

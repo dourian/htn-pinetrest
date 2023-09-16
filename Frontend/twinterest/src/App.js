@@ -6,6 +6,8 @@ function App() {
   const [username, setUsername] = useState("");
   const [caption, setCaption] = useState("");
   const [displayform, setDisplayForm] = useState(false);
+  const [currentLat, setCurrentLat] = useState(0);
+  const [currentLng, setCurrentLng] = useState(0);
 
   function handleChange(event) {
     setFile(event.target.files[0]);
@@ -77,7 +79,7 @@ function App() {
 
   return (
     <div className="App">
-      <TrailMap />
+      <TrailMap currentLat={currentLat} currentLng={currentLng} setCurrentLat={setCurrentLat} setCurrentLng={setCurrentLng}/>
 
       {!displayform && (
         <div>
