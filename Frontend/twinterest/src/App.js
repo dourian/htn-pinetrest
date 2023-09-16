@@ -4,6 +4,7 @@ import TrailMap from "./Map";
 // import handleUpload from '../Backend/firebaseConnector.js';
 function App() {
   const [file, setFile] = useState("");
+  const [displayform, setDisplayForm] = useState(false);
 
   function handleChange(event) {
     setFile(event.target.files[0]);
@@ -34,13 +35,24 @@ function App() {
 
   return (
     <div className="App">
-      <input type="file" onChange={handleChange} accept="/image/*" />
-      <button onClick={handleUpload}>Upload to Firebase</button>
+
       <TrailMap />
       <Hover />
-      <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-        Toggle modal
-      </button>
+
+      {!displayform &&
+        <div>
+          <button onClick={() => { setDisplayForm(true) }} className="absolute bottom-0 right-0 rounded-full  bg-sky-500/100 h-16 w-16 ...">
+            +
+          </button>
+        </div>
+      }
+
+      {displayform &&
+        <div className="container z-50">
+          <input type="file" onChange={handleChange} accept="/image/*" />
+          <button onClick={handleUpload}>Upload to Firebase</button>
+        </div>
+      }
     </div>
   );
 }
