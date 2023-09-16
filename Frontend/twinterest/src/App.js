@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Hover from "./Hover";
 import TrailMap from "./Map";
 // import handleUpload from '../Backend/firebaseConnector.js';
 function App() {
@@ -37,7 +36,6 @@ function App() {
     <div className="App">
 
       <TrailMap />
-      <Hover />
 
       {!displayform &&
         <div>

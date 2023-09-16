@@ -10,6 +10,7 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from "use-places-autocomplete";
 import "./index.css";
+import Hover from "./Hover";
 
 const PlacesAutocomplete = ({ setSelected }) => {
   const {
@@ -136,9 +137,6 @@ export default function MapWrapper() {
                 url: markerinfo.image_url,
                 scaledSize: new google.maps.Size(0, 0),
               }}
-              //   title={markerinfo.display_name}
-              //   description={markerinfo.description}
-              onClick={() => handleActiveMarker(markerinfo.image_url)}
             >
               <InfoWindowF
                 onCloseClick={() => setActiveMarker(null)}
@@ -147,7 +145,10 @@ export default function MapWrapper() {
                   lng: markerinfo.location.longitude,
                 }}
               >
-                <div className="h-16 w-32 rounded-3xl justify-center overflow-hidden">
+                <div
+                  className="h-16 w-32 rounded-3xl justify-center overflow-hidden"
+                  onClick={() => handleActiveMarker(markerinfo.image_url)}
+                >
                   <img
                     src={markerinfo.image_url}
                     className=" w-full markerinfo"
@@ -155,19 +156,13 @@ export default function MapWrapper() {
                 </div>
               </InfoWindowF>
             </MarkerF>
-            {/* <InfoWindow
-                position={{
-                  lat: markerinfo.location.latitude,
-                  lng: markerinfo.location.longitude,
-                }}
-
-                options={{ content: markerinfo.content, disableAutoPan: true, }}
-                children={<div className=""></div>}
-              /> */}
           </>
         ))}
         <></>
       </GoogleMap>
+      {activeMarker && markers && (
+        <Hover markerinfo={markers.find((e) => e.image_url == activeMarker)} />
+      )}
     </>
   ) : (
     <></>
