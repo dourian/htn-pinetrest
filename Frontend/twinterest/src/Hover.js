@@ -1,24 +1,26 @@
-import React from 'react';
+import React from "react";
 
 const Hover = () => {
   return (
-    <div
-      style={{
-        backgroundColor: 'white',
-        borderRadius: '10px',
-        padding: '20px',
-        position: 'fixed',
-        bottom: '20px',
-        left: '20px',
-        width:'400px',
-        height:'300px'
-      }}
-    >
-      <img src="https://via.placeholder.com/100" alt="Sample Image" style={{ width: '50px', height: '50px', borderRadius: '50%' }}/>
-      
-      <p style={{ marginLeft: '70px', marginTop:'-40px'}}>placeholder</p>
+    <div className="absolute inset-x-0 bottom-0 h-1/6 w-5/6...">
+      <div className="grid grid-cols-7 gap-7">
+        <div>
+          <div className="absolute left-0 top-0 h-1/100 w-1/100 ...">
+          <img
+          src="https://via.placeholder.com/50"
+          alt="Sample Image"
+          />
+          </div>
+        </div>
+        
 
-      <img src="https://via.placeholder.com/100" alt="Sample Image" style={{ width: '50px', height: '50px', borderRadius: '50%' }}/>
+        <div className="col-span-6">
+          <div class="grid grid-rows-2 grid-flow-col gap-4">
+          <p>Smiggrep</p>
+          </div>
+          
+        </div>
+      </div>
 
     </div>
   );

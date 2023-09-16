@@ -1,14 +1,20 @@
 import express from "express";
-import cors from "cors";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 import bodyParser from "body-parser";
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from './firebaseConnector.js';
-import multer from 'multer';
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "./firebaseConnector.js";
+import multer from "multer";
 import { doc, setDoc } from "firebase/firestore";
+import cors from "cors";
 
 const app = express();
+app.use(cors());
 const jsonParser = bodyParser.json();
 
 const app1 = initializeApp(firebaseConfig);
@@ -23,12 +29,14 @@ app.get("/", (req, res) => {
   res.send("smiggrep");
 });
 
-app.post("/test",
+app.post(
+  "/test",
   bodyParser.raw({ type: ["image/jpeg", "image/png"], limit: "5mb" }),
   (req, res) => {
     console.log(req.body);
     res.sendStatus(200);
-  });
+  }
+);
 
 app.get("/getImageURL", jsonParser, async (req, res) => {
   const imageRef = ref(storage, req);
@@ -50,23 +58,23 @@ app.post("/post", jsonParser, async (req, res) => {
     username: req.body.username,
     datetime: {
       seconds: req.body.datetime.seconds,
-      nanoseconds: req.body.datetime.nanoseconds
+      nanoseconds: req.body.datetime.nanoseconds,
     },
     location: {
       latitude: req.body.location.latitude,
-      longitude: req.body.location.longitude
-    }
+      longitude: req.body.location.longitude,
+    },
   });
 
-  res.end()
-})
+  res.end();
+});
 
 app.get("/getPoints", jsonParser, async (req, res) => {
   //displayname, username, image url, description, datetime, location
   try {
-    const posts = collection(db, 'posts');
+    const posts = collection(db, "posts");
     const postSnapshot = await getDocs(posts);
-    const postList = postSnapshot.docs.map(doc => doc.data());
+    const postList = postSnapshot.docs.map((doc) => doc.data());
 
     res.send(postList);
     res.end();
@@ -78,19 +86,24 @@ app.get("/getPoints", jsonParser, async (req, res) => {
 
 const giveCurrentDateTime = () => {
   const today = new Date();
-  const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-  const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  const dateTime = date + ' ' + time;
+  const date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  const time =
+    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  const dateTime = date + " " + time;
   return dateTime;
-}
+};
 
 // generate prompts
 app.post("/upload", upload.single("filename"), async (req, res) => {
   try {
-    console.log(req.file)
+    console.log(req.file);
     const dateTime = giveCurrentDateTime();
     //${req.file.originalname + "       " + dateTime}
-    const storageRef = ref(storage, `/${req.file.originalname + "       " + dateTime}`);
+    const storageRef = ref(
+      storage,
+      `/${req.file.originalname + "       " + dateTime}`
+    );
 
     // Create file metadata including the content type
     const metadata = {
@@ -98,19 +111,23 @@ app.post("/upload", upload.single("filename"), async (req, res) => {
     };
 
     // Upload the file in the bucket storage
-    const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+    const snapshot = await uploadBytesResumable(
+      storageRef,
+      req.file.buffer,
+      metadata
+    );
     //by using uploadBytesResumable we can control the progress of uploading like pause, resume, cancel
 
     // Grab the public url
     const downloadURL = await getDownloadURL(snapshot.ref);
 
-    console.log('File successfully uploaded.');
+    console.log("File successfully uploaded.");
     return res.send({
-      message: 'file uploaded to firebase storage',
+      message: "file uploaded to firebase storage",
       name: req.file.originalname,
       type: req.file.mimetype,
-      downloadURL: downloadURL
-    })
+      downloadURL: downloadURL,
+    });
   } catch (error) {
     console.error("Error:", error);
   }
@@ -120,7 +137,6 @@ const port = process.env.PORT || 8000;
 app.listen(port, () => {
   console.log(`server running on port ${port}`);
 });
-
 
 function djb2Hash(inputString) {
   let hash = 5381; // Initial hash value
