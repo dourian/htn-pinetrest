@@ -29,14 +29,9 @@ getCities(db);
 getDownloadURL(shinjiRef)
   .then((url) => {
     console.log(url);
-    // Insert url into an <img> tag to "download"
-    const xhr = new XMLHttpRequest();
-    xhr.responseType = 'blob';
-    xhr.onload = (event) => {
-      const blob = xhr.response;
-    };
-    xhr.open('GET', url);
-    xhr.send();
+    // Or inserted into an <img> element
+    //const img = document.getElementById('myimg');
+    //img.setAttribute('src', url);
     
   })
   .catch((error) => {
