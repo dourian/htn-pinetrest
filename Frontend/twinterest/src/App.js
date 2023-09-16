@@ -38,48 +38,47 @@ function App() {
 
   const submitPost = (e) => {
     var myHeaders = new Headers();
-    
+
     myHeaders.append("Content-Type", "application/json");
     handleUpload().then((res) => {
-      console.log(res.downloadURL);  
+      console.log(res.downloadURL);
       var raw = JSON.stringify({
-        
-        
-        "username": username,
-        "location": {
-          "latitude": 49.472966,
-          "longitude": -87.539806
+        username: username,
+        location: {
+          latitude: 49.472966,
+          longitude: -87.539806,
         },
-        "display_name": username,
-        "image_url": res.downloadURL,
-        "datetime": {
-          "seconds": 1694875112,
-          "nanoseconds": 602000000
+        display_name: username,
+        image_url: res.downloadURL,
+        datetime: {
+          seconds: 1694875112,
+          nanoseconds: 602000000,
         },
-        "content": caption
+        content: caption,
       });
       console.log(raw);
       var requestOptions = {
-        method: 'POST',
+        method: "POST",
         headers: myHeaders,
         body: raw,
-        redirect: 'follow'
+        redirect: "follow",
       };
 
       fetch("http://localhost:8000/post", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
     });
-
-
-
-  }
+  };
 
   return (
     <div className="App">
-      <TrailMap currentLat={currentLat} currentLng={currentLng} setCurrentLat={setCurrentLat} setCurrentLng={setCurrentLng}/>
+      <TrailMap
+        currentLat={currentLat}
+        currentLng={currentLng}
+        setCurrentLat={setCurrentLat}
+        setCurrentLng={setCurrentLng}
+      />
 
       {!displayform && (
         <div>
@@ -94,16 +93,21 @@ function App() {
         </div>
       )}
 
-      {displayform &&
-
+      {displayform && (
         <div className="z-50">
           <form onSubmit={submitPost}>
             <input type="file" onChange={handleChange} accept="/image/*" />
-            <input onChange={e => setUsername(e.target.value)}></input>
-            <input onChange={e => setCaption(e.target.value)}></input>
-            <button type="submit" >Upload to Firebase</button>
+            <input onChange={(e) => setUsername(e.target.value)}></input>
+            <input onChange={(e) => setCaption(e.target.value)}></input>
+            <button type="submit">Upload to Firebase</button>
           </form>
-          <button onClick={() => { setDisplayForm(false) }}>X</button>
+          <button
+            onClick={() => {
+              setDisplayForm(false);
+            }}
+          >
+            X
+          </button>
         </div>
       )}
     </div>
