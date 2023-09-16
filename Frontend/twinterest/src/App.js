@@ -1,10 +1,9 @@
-
-import MyComponent from './Map';
+import MapWrapper from "./Map";
 
 function App() {
   return (
     <div className="App">
-        <MyComponent/>
+      <MapWrapper />
     </div>
   );
 }

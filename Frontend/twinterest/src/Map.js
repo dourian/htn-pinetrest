@@ -15,6 +15,8 @@ const center = {
   lng: -80.539849,
 };
 
+const libraries = ["places"];
+
 const PlacesAutocomplete = ({ setSelected }) => {
   const {
     ready,
@@ -23,6 +25,16 @@ const PlacesAutocomplete = ({ setSelected }) => {
     suggestions: { status, data },
     clearSuggestions,
   } = usePlacesAutocomplete();
+
+  const handleSelect = async (address) => {
+    setValue(address, false);
+    clearSuggestions();
+
+    const results = await getGeocode({ address });
+    const { lat, lng } = await getLatLng(results[0]);
+    console.log({ lat, lng });
+    setSelected({ lat, lng });
+  };
 
   return (
     <form className={`drop_shadow w-full absolute z-10 top-5`}>
@@ -45,21 +57,27 @@ const PlacesAutocomplete = ({ setSelected }) => {
       <div>
         {status === "OK" &&
           data.map(({ place_id, description }) => (
-            <p key={place_id}>{description}</p>
+            <button key={place_id} onClick={() => handleSelect(description)}>
+              {description}
+            </button>
           ))}
       </div>
     </form>
   );
 };
 
-function MyComponent() {
-  const google = window.google;
-
+export default function MapWrapper() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyBgx2IEOegL2ILr6cdBzeymb3-6GChTTIc",
-    libraries: ["places"],
+    libraries,
   });
+
+  return isLoaded ? <Map /> : <></>;
+}
+
+function Map() {
+  const google = window.google;
 
   const [selected, setSelected] = useState(null);
   const [map, setMap] = React.useState(null);
@@ -76,34 +94,41 @@ function MyComponent() {
     setMap(null);
   }, []);
 
-  return isLoaded ? (
+  return (
     <>
       <div className="places-container">
         <PlacesAutocomplete setSelected={setSelected} />
       </div>
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={center}
+        center={selected ? { lat: selected.lat, lng: selected.lng } : center}
         defaultZoom={3}
         onLoad={onLoad}
         onUnmount={onUnmount}
         options={{ disableDefaultUI: true, mapId: "10561e5854fbba2e" }}
       >
         {/* Child components, such as markers, info windows, etc. */}
-        <Marker
-          position={center}
-          icon={{
-            url: "https://firebasestorage.googleapis.com/v0/b/impactful-ring-399204.appspot.com/o/shinguh.png?alt=media&token=1a8cc7a6-7b71-4b65-a649-bcbaf9269abc",
-            scaledSize: new google.maps.Size(100, 100),
-          }}
-          title="shinguh"
-        />
+        {selected && (
+          <>
+            <Marker
+              z-zIndex={20}
+              position={center}
+              icon={{
+                url: "https://firebasestorage.googleapis.com/v0/b/impactful-ring-399204.appspot.com/o/shinguh.png?alt=media&token=1a8cc7a6-7b71-4b65-a649-bcbaf9269abc",
+                scaledSize: new google.maps.Size(100, 100),
+              }}
+              title="shinguh"
+            />
+            <Marker
+              position={{
+                lat: 43.4642578,
+                lng: -80.5204096,
+              }}
+            />{" "}
+          </>
+        )}
         <></>
       </GoogleMap>
     </>
-  ) : (
-    <></>
   );
 }
-
-export default React.memo(MyComponent);
