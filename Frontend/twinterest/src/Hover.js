@@ -1,46 +1,29 @@
 import React from "react";
 
-const Hover = () => {
-  return (
-    <div className="absolute inset-x-3 bottom-0 w-fit rounded-t-lg ...">
-        <div className="grid grid-cols-7 gap-7" >
-          <div>
-            <div className="absolute left-0 top-0 ...">
-              <div>
-                <img
-                  className="object-cover p-1 h-1/2 w-1/2 ..."
-                  src="https://via.placeholder.com/100"
-                  alt="Sample Image"
-                />
-              </div>
-            </div>
-          </div>
+const Hover = ({ markerinfo }) => {
+  console.log("sup");
 
+  const datetime = {
+    seconds: markerinfo.datetime.seconds,
+    nanoseconds: markerinfo.datetime.nanoseconds
+  };
+  
+  // Convert to milliseconds by multiplying seconds by 1000 and adding nanoseconds divided by 1,000,000
+  const timestampInMillis = datetime.seconds * 1000 + datetime.nanoseconds / 1000000;
+  
+  // Create a Date object
+  const date = new Date(timestampInMillis);
+  
+  // Format the date and time as a string
+  const formattedDateTime = date.toLocaleString();
 
-          <div className="col-span-6">
-            <div className="grid grid-rows-2 gap-1">
-              <p>Smiggrep</p>
-              <p>@Smiggrep</p>
-            </div>
-
-          </div>
-        </div>
-
-
-        <img
-            className="object-cover p-3 h-48 w-96 ..."
-            src="https://via.placeholder.com/1000" />
-
-
-        <div>
-          <div className="grid grid-rows-2 gap-1">
-            <p>Smiggrep</p>
-            <p>@Smiggrep</p>
-          </div>
-        </div>
-
-    </div>
-  );
+  return <div className="h-1/4 w-full bg-white absolute bottom-0 rounded-r-3xl rounded-t-3xl p-5 flex flex-col min-h-[200px]">
+    <p className="text-sm font-medium">{markerinfo.display_name}</p>
+    <p className="text-sm font-normal italic">@{markerinfo.username}</p>
+    <img src={markerinfo.image_url} className="w-full h-24 object-cover mt-4"/>
+    <p className="text-sm mt-4">{markerinfo.content}</p>
+    <p className="text-gray-400">{formattedDateTime}</p>
+  </div>;
 };
 
 export default Hover;

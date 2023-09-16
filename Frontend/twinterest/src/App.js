@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Hover from "./Hover";
 import TrailMap from "./Map";
 // import handleUpload from '../Backend/firebaseConnector.js';
 function App() {
@@ -37,7 +36,7 @@ function App() {
       <input type="file" onChange={handleChange} accept="/image/*" />
       <button onClick={handleUpload}>Upload to Firebase</button>
       <TrailMap />
-      <Hover />
+      {/* <Hover /> */}
     </div>
   );
 }
