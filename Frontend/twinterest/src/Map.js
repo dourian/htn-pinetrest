@@ -1,18 +1,16 @@
-import React, { useState } from "react";
-import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import React, { useEffect, useState } from "react";
+import {
+  GoogleMap,
+  InfoWindowF,
+  MarkerF,
+  useJsApiLoader,
+} from "@react-google-maps/api";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-const containerStyle = {
-  width: "100vw",
-  height: "100vh",
-};
-const center = {
-  lat: 43.473176,
-  lng: -80.539849,
-};
-const libraries = ["places"];
+import "./index.css";
+
 const PlacesAutocomplete = ({ setSelected }) => {
   const {
     ready,
@@ -58,20 +56,37 @@ const PlacesAutocomplete = ({ setSelected }) => {
     </form>
   );
 };
+
 export default function MapWrapper() {
+  const libraries = ["places"];
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyBgx2IEOegL2ILr6cdBzeymb3-6GChTTIc",
     libraries,
   });
-  return isLoaded ? <Map /> : <></>;
-}
-function Map() {
   const google = window.google;
   const [selected, setSelected] = useState(null);
   const [map, setMap] = React.useState(null);
+  const [activeMarker, setActiveMarker] = useState(null);
+
+  const handleActiveMarker = (marker) => {
+    if (marker === activeMarker) {
+      return;
+    }
+    setActiveMarker(marker);
+  };
+
+  const containerStyle = {
+    width: "100vw",
+    height: "90vh",
+  };
+  const center = {
+    lat: 43.473176,
+    lng: -80.539849,
+  };
+
+  const [markers, setMarkers] = useState(null);
   const onLoad = React.useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
     const bounds = new window.google.maps.LatLngBounds(center);
     map.fitBounds(bounds);
     setMap(map);
@@ -79,7 +94,22 @@ function Map() {
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null);
   }, []);
-  return (
+
+  useEffect(() => {
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch("http://localhost:8000/getPoints", requestOptions)
+      .then((response) => response.text())
+      .then((result) => setMarkers(JSON.parse(result)))
+      .catch((error) => console.log("error", error));
+  }, []);
+
+  console.log(markers);
+
+  return isLoaded ? (
     <>
       <div className="places-container">
         <PlacesAutocomplete setSelected={setSelected} />
@@ -90,30 +120,56 @@ function Map() {
         defaultZoom={3}
         onLoad={onLoad}
         onUnmount={onUnmount}
+        onClick={() => setActiveMarker(null)}
         options={{ disableDefaultUI: true, mapId: "10561e5854fbba2e" }}
       >
-        {/* Child components, such as markers, info windows, etc. */}
-        {selected && (
+        {markers?.map((markerinfo) => (
           <>
-            <Marker
-              z-zIndex={20}
-              position={center}
-              icon={{
-                url: "https://firebasestorage.googleapis.com/v0/b/impactful-ring-399204.appspot.com/o/shinguh.png?alt=media&token=1a8cc7a6-7b71-4b65-a649-bcbaf9269abc",
-                scaledSize: new google.maps.Size(100, 100),
-              }}
-              title="shinguh"
-            />
-            <Marker
+            <MarkerF
+              key={markerinfo.username}
+              //   z-Index={20}
               position={{
-                lat: 43.4642578,
-                lng: -80.5204096,
+                lat: markerinfo.location.latitude,
+                lng: markerinfo.location.longitude,
               }}
-            />{" "}
+              icon={{
+                url: markerinfo.image_url,
+                scaledSize: new google.maps.Size(0, 0),
+              }}
+              //   title={markerinfo.display_name}
+              //   description={markerinfo.description}
+              onClick={() => handleActiveMarker(markerinfo.image_url)}
+            >
+              <InfoWindowF
+                onCloseClick={() => setActiveMarker(null)}
+                position={{
+                  lat: markerinfo.location.latitude,
+                  lng: markerinfo.location.longitude,
+                }}
+              >
+                <div className="h-16 w-32 rounded-3xl justify-center overflow-hidden">
+                  <img
+                    src={markerinfo.image_url}
+                    className=" w-full markerinfo"
+                  ></img>
+                </div>
+              </InfoWindowF>
+            </MarkerF>
+            {/* <InfoWindow
+                position={{
+                  lat: markerinfo.location.latitude,
+                  lng: markerinfo.location.longitude,
+                }}
+
+                options={{ content: markerinfo.content, disableAutoPan: true, }}
+                children={<div className=""></div>}
+              /> */}
           </>
-        )}
+        ))}
         <></>
       </GoogleMap>
     </>
+  ) : (
+    <></>
   );
 }
