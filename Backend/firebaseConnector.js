@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
-import { getStorage, ref,  getDownloadURL } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+//import shinguh from '../Backend/testfiles/shinguh.png';
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
 
@@ -14,16 +15,20 @@ const firebaseConfig = {
     appId: "1:45769175073:web:e510fab6359339fb63f360",
     storageBucket: "gs://impactful-ring-399204.appspot.com",
   };
-  
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 // Initialize Cloud Storage and get a reference to the service
 const storage = getStorage(app);
 
 // Create a storage reference from our storage service
-const storageRef = ref(storage);
+//const storageRef = ref(storage);
 const shinjiRef = ref(storage, 'shinguh.png');
 getCities(db);
+
+function handleChange(event) {
+  setFile(event.target.files[0]);
+}
 
 // Get the download URL
 getDownloadURL(shinjiRef)
@@ -62,5 +67,22 @@ async function getCities(db) {
   const citySnapshot = await getDocs(posts);
   const cityList = citySnapshot.docs.map(doc => doc.data());
   console.log(cityList);
-  console.log(getDownloadURL);
 }
+
+const storageRef = ref(storage, 'shinguh1.png');
+const bytes = new Uint8Array([0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x2c, 0x20, 0x77, 0x6f, 0x72, 0x6c, 0x64, 0x21]);
+
+const handleUpload = () => {
+  //if (!file) {
+     // alert("Please upload an image first!");
+  //}
+  // 'file' comes from the Blob or File API
+  uploadBytes(storageRef, bytes).then((snapshot) => { 
+    console.log('Uploaded a blob or file!');
+    getDownloadURL(snapshot.ref).then((url) => {
+      console.log(url);
+  });
+  });
+};
+
+handleUpload();
