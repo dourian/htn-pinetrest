@@ -3,6 +3,8 @@ import TrailMap from "./Map";
 // import handleUpload from '../Backend/firebaseConnector.js';
 function App() {
   const [file, setFile] = useState("");
+  const [username, setUsername] = useState("");
+  const [caption, setCaption] = useState("");
   const [displayform, setDisplayForm] = useState(false);
 
   function handleChange(event) {
@@ -32,6 +34,47 @@ function App() {
       .catch((error) => console.log("error", error));
   };
 
+  const submitPost = (e) => {
+    var myHeaders = new Headers();
+    
+    myHeaders.append("Content-Type", "application/json");
+    handleUpload().then((res) => {
+      console.log(res.downloadURL);  
+      var raw = JSON.stringify({
+        
+        
+        "username": username,
+        "location": {
+          "latitude": 49.472966,
+          "longitude": -87.539806
+        },
+        "display_name": username,
+        "image_url": res.downloadURL,
+        "datetime": {
+          "seconds": 1694875112,
+          "nanoseconds": 602000000
+        },
+        "content": caption
+      });
+      console.log(raw);
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      fetch("http://localhost:8000/post", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+
+    });
+
+
+
+  }
+
   return (
     <div className="App">
 
@@ -46,9 +89,14 @@ function App() {
       }
 
       {displayform &&
-        <div className="container z-50">
-          <input type="file" onChange={handleChange} accept="/image/*" />
-          <button onClick={handleUpload}>Upload to Firebase</button>
+
+        <div className="z-50">
+          <form onSubmit={submitPost}>
+            <input type="file" onChange={handleChange} accept="/image/*" />
+            <input onChange={e => setUsername(e.target.value)}></input>
+            <input onChange={e => setCaption(e.target.value)}></input>
+            <button type="submit" >Upload to Firebase</button>
+          </form>
           <button onClick={() => { setDisplayForm(false) }}>X</button>
         </div>
       }
