@@ -1,6 +1,6 @@
 import { useState } from "react";
 import MyComponent from './Map';
-import handleUpload from '../Backend/firebaseConnector.js';
+
 function App() {
 
   const [file, setFile] = useState("");
