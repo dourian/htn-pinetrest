@@ -77,16 +77,20 @@ function App() {
 
   return (
     <div className="App">
-
       <TrailMap />
 
-      {!displayform &&
+      {!displayform && (
         <div>
-          <button onClick={() => { setDisplayForm(true) }} className="absolute bottom-0 right-0 rounded-full  bg-sky-500/100 h-16 w-16 ...">
+          <button
+            onClick={() => {
+              setDisplayForm(true);
+            }}
+            className="absolute bottom-0 right-0 rounded-full  bg-sky-500/100 h-16 w-16 ..."
+          >
             +
           </button>
         </div>
-      }
+      )}
 
       {displayform &&
 
@@ -99,7 +103,7 @@ function App() {
           </form>
           <button onClick={() => { setDisplayForm(false) }}>X</button>
         </div>
-      }
+      )}
     </div>
   );
 }
