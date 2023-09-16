@@ -1,6 +1,6 @@
 import { useState } from "react";
-import MyComponent from './Map';
-
+import MapWrapper from "./Map";
+import handleUpload from '../Backend/firebaseConnector.js';
 function App() {
 
   const [file, setFile] = useState("");
@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div className="App">
-      <MyComponent />
+      <MapWrapper />
       <input type="file" onChange={handleChange} accept="/image/*" />
       <button onClick={handleUpload(file)}>Upload to Firebase</button>
     </div>
