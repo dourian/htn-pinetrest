@@ -133,10 +133,10 @@ function App() {
           <div className="flex flex-row">
             <img
               alt=""
-              className="ml-5 h-20 w-20 rounded-full"
+              className="ml-5 h-14 w-14 md:h-20 md:w-20 rounded-full"
               src="https://i.kym-cdn.com/photos/images/newsfeed/002/652/460/d70.jpg"
             ></img>
-            <div className="ml-5 h-20 w-32 bg-red-50">
+            <div className="ml-5 h-20 w-32">
               <input
                 className="text-sm font-medium"
                 onChange={(e) => setDisplayName(e.target.value)}
@@ -150,17 +150,17 @@ function App() {
             </div>
             <div className="flex-grow" />
             <button
-              className="h-16 w-32 rounded-full bg-black mr-5 text-white"
+              className="h-10 md:h-16 w-24 md:w-32 rounded-full bg-black mr-5 text-white"
               onClick={() => {
                 submitPost();
               }}
               disabled={isLoading}
             >
-              {isLoading ? "Uploading..." : "Start"}
+              {isLoading ? "Uploading..." : "POST!"}
             </button>
           </div>
           <div
-            className="flex-row h-2/5 bg-gray-200 m-5 rounded-lg"
+            className="flex-row h-1/5 md:h-2/5 bg-gray-200 m-5 rounded-lg"
             style={{
               display: "flex",
               justifyContent: "center",
@@ -170,7 +170,7 @@ function App() {
             <input type="file" onChange={handleChange} accept="image/*" />
           </div>
           <input
-            className="h-16 ml-5 mr-5 p-5 left-0 right-0 bg-gray-200 rounded-lg"
+            className="h-10 md:h-16 ml-5 mr-5 p-5 left-0 right-0 bg-gray-200 rounded-lg"
             onChange={(e) => setCaption(e.target.value)}
             placeholder="enter a message..."
           ></input>
