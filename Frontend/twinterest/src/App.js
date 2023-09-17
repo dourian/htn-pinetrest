@@ -40,7 +40,9 @@ function App() {
     var myHeaders = new Headers();
 
     myHeaders.append("Content-Type", "application/json");
-    handleUpload.then((res) => {
+    handleUpload().then((res) => {
+      console.log("!");
+      const today = new Date();
       console.log(res.downloadURL);
       var raw = JSON.stringify({
         username: username,
@@ -50,8 +52,8 @@ function App() {
         },
         image_url: res.downloadURL,
         datetime: {
-          seconds: 1694875112,
-          nanoseconds: 602000000,
+          seconds: today.getSeconds(),
+          nanoseconds: today.getMilliseconds(),
         },
         content: caption,
       });
@@ -62,7 +64,6 @@ function App() {
         body: raw,
         redirect: "follow",
       };
-      console.log("!");
       fetch("http://localhost:8000/post", requestOptions)
         .then((response) => response.text())
         .then((result) => console.log(result))
