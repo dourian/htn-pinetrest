@@ -221,7 +221,7 @@ const TrailMap = ({
         <></>
       </GoogleMap>
       {activeMarker && markers && (
-        <Hover markerinfo={markers.find((e) => e.image_url === activeMarker)} />
+        <Hover markerinfo={markers.find((e) => e.image_url === activeMarker)} setActiveMarker={setActiveMarker} />
       )}
     </>
   );

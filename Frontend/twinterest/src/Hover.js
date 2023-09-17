@@ -1,9 +1,10 @@
 import React from "react";
+import { AiOutlineClose } from "react-icons/ai";
 
-const Hover = ({ markerinfo }) => {
+const Hover = ({ markerinfo, setActiveMarker }) => {
   const datetime = {
     seconds: markerinfo.datetime.seconds,
-    nanoseconds: markerinfo.datetime.nanoseconds
+    nanoseconds: markerinfo.datetime.nanoseconds,
   };
 
   const pfps = ["https://i.kym-cdn.com/photos/images/newsfeed/002/652/460/d70.jpg",

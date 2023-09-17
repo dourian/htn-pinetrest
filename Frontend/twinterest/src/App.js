@@ -39,7 +39,10 @@ function App() {
     let localUrl; // Declare url locally
 
     // First fetch request to upload the file
-    fetch("https://pientrest-15ef1ac3bb8f.herokuapp.com/upload", requestOptions1)
+    fetch(
+      "https://pientrest-15ef1ac3bb8f.herokuapp.com/upload",
+      requestOptions1
+    )
       .then((response) => response.json())
       .then((data) => {
         localUrl = data.downloadURL; // Assign the value to the local variable
@@ -75,7 +78,10 @@ function App() {
         };
 
         // Second fetch request to post the data
-        return fetch("https://pientrest-15ef1ac3bb8f.herokuapp.com/post", requestOptions);
+        return fetch(
+          "https://pientrest-15ef1ac3bb8f.herokuapp.com/post",
+          requestOptions
+        );
       })
       .then((response) => response.text())
       .then((result) => {
@@ -135,16 +141,12 @@ function App() {
       )}
 
       {displayform && (
-        <div className="h-1/2 w-full bg-white bottom-0 absolute rounded-t-xl">
-          <div className="w-full">
-            <AiOutlineClose
-              onClick={() => setDisplayForm(false)}
-              className="h-5 w-5 m-5"
-            >
-              x
-            </AiOutlineClose>
-          </div>
-          <div className="flex flex-row">
+        <div className="h-1/2 w-full bg-white bottom-0 absolute rounded-t-xl p-5">
+          <AiOutlineClose
+            onClick={() => setDisplayForm(false)}
+            className="h-5 w-5 absolute right-5"
+          />
+          <div className="flex flex-row mt-6">
             <img
               alt=""
               className="ml-5 h-14 w-14 md:h-20 md:w-20 rounded-full"
