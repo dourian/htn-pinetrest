@@ -23,7 +23,7 @@ our frontend was built with react and tailwind, backend with javascript and fire
 ## our use of google cloud
 
 ## our use of github
-
+our entire team collaborated on a github repository. using the pull and version control systems of github to the fullest, we were able to efficiently and effectively working together to this successful goal. as well, we were able to create an organized hub for all of our work, including an in-depth README markdown file regarding this project and the experience that we had here! finally, all good applications deserved to be deployed, and what better way to do that with github's own github pages. all in all, we used github in near all aspects of our weekend of hacking here at hack the north 2023.
 
 ## looking to the future 🤖: expanding
 there is definitely room to build out this app even as a general social media app. we believe that people would enjoy seeing where their friends are and see what areas are popular at that time based on location.
