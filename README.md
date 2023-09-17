@@ -1,5 +1,3 @@
-![loogo111 (1)](https://github.com/dourian/twinterest/assets/122124464/be1575d1-969a-4ee6-9e83-337271c46846)
-
 <img width="674" alt="Screenshot 2023-09-17 at 2 41 31 AM" src="https://github.com/dourian/pinetrest/assets/122124464/c1f99c79-b5bd-4254-a39c-e7d7f97ed7e5">
 
 # Pinetrest 🌲: Know Before You Go!
