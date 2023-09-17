@@ -20,19 +20,20 @@ const PlacesAutocomplete = ({ setSelected }) => {
     suggestions: { status, data },
     clearSuggestions,
   } = usePlacesAutocomplete();
+
   const handleSelect = async (address) => {
     setValue(address, false);
     clearSuggestions();
     const results = await getGeocode({ address });
     const { lat, lng } = await getLatLng(results[0]);
-    console.log({ lat, lng });
     setSelected({ lat, lng });
   };
+
   return (
-    <form className={`drop_shadow w-full absolute z-10 top-5`}>
+    <form className={`drop_shadow w-full absolute z-10 top-5 items-center`}>
       <label>
         <input
-          className={`border-[2px] rounded-lg mx-4 py-1 px-4 h-[50px] w-9/12`} // Change w-10/12 to w-full
+          className={`border-[2px] rounded-lg mx-4 py-1 px-4 h-[50px] w-11/12`} // Change w-10/12 to w-full
           type="text"
           value={value}
           onChange={(e) => setValue(e.target.value)}
@@ -40,25 +41,29 @@ const PlacesAutocomplete = ({ setSelected }) => {
           placeholder={"Where do you want to go?"}
         ></input>
       </label>
-      <button
-        className={`text-sm rounded-lg px-4 py-2 drop_shadow bg-black text-white`}
-        type="submit"
-      >
-        {"Go"}
-      </button>
-      <div>
-        {status === "OK" &&
-          data.map(({ place_id, description }) => (
-            <button key={place_id} onClick={() => handleSelect(description)}>
+      {status === "OK" && (
+        <div className="bg-white m-2 p-3 rounded-md">
+          {data.map(({ place_id, description }) => (
+            <button
+              className="w-full text-start border-gray-200 border-y-[0.5px]"
+              key={place_id}
+              onClick={() => handleSelect(description)}
+            >
               {description}
             </button>
           ))}
-      </div>
+        </div>
+      )}
     </form>
   );
 };
 
-export default function MapWrapper({currentLat, setCurrentLat, currentLng, setCurrentLng}) {
+export default function MapWrapper({
+  currentLat,
+  setCurrentLat,
+  currentLng,
+  setCurrentLng,
+}) {
   const libraries = ["places"];
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -108,8 +113,6 @@ export default function MapWrapper({currentLat, setCurrentLat, currentLng, setCu
       .catch((error) => console.log("error", error));
   }, []);
 
-  console.log(markers);
-
   return isLoaded ? (
     <>
       <div className="places-container">
@@ -121,9 +124,23 @@ export default function MapWrapper({currentLat, setCurrentLat, currentLng, setCu
         defaultZoom={3}
         onLoad={onLoad}
         onUnmount={onUnmount}
-        onClick={(ev) => {setActiveMarker(null); setCurrentLat(ev.latLng.lat()); setCurrentLng(ev.latLng.lng())}}
+        onClick={(ev) => {
+          setActiveMarker(null);
+          setCurrentLat(ev.latLng.lat());
+          setCurrentLng(ev.latLng.lng());
+          setSelected(ev.latLng.lat(), ev.latLng.lng());
+        }}
         options={{ disableDefaultUI: true, mapId: "10561e5854fbba2e" }}
       >
+        {currentLat && currentLng && (
+          <MarkerF
+            key={"current-click"}
+            position={{
+              lat: currentLat,
+              lng: currentLng,
+            }}
+          />
+        )}
         {markers?.map((markerinfo) => (
           <>
             <MarkerF
