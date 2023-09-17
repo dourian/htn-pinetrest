@@ -31,7 +31,7 @@ function App() {
     let localUrl; // Declare url locally
 
     // First fetch request to upload the file
-    fetch("http://localhost:8000/upload", requestOptions1)
+    fetch("https://pientrest-15ef1ac3bb8f.herokuapp.com/upload", requestOptions1)
       .then((response) => response.json())
       .then((data) => {
         localUrl = data.downloadURL; // Assign the value to the local variable
@@ -67,7 +67,7 @@ function App() {
         };
 
         // Second fetch request to post the data
-        return fetch("http://localhost:8000/post", requestOptions);
+        return fetch("https://pientrest-15ef1ac3bb8f.herokuapp.com/post", requestOptions);
       })
       .then((response) => response.text())
       .then((result) => {

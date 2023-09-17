@@ -138,7 +138,7 @@ const TrailMap = ({
       redirect: "follow",
     };
 
-    fetch("http://localhost:8000/getPoints", requestOptions)
+    fetch("https://pientrest-15ef1ac3bb8f.herokuapp.com/getPoints", requestOptions)
       .then((response) => response.text())
       .then((result) => setMarkers(JSON.parse(result)))
       .catch((error) => console.log("error", error));
