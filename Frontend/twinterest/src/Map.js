@@ -113,8 +113,8 @@ const TrailMap = ({
   };
 
   const containerStyle = {
-    width: "100vw",
-    height: "100vh",
+    width: "100lvw",
+    height: "100lvh",
   };
 
   const [markers, setMarkers] = useState(null);

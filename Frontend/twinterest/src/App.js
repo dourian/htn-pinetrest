@@ -115,7 +115,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App overf">
       <TrailMap
         currentLat={currentLat}
         currentLng={currentLng}
