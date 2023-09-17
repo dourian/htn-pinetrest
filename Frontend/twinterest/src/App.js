@@ -15,6 +15,7 @@ function App() {
     console.log(file);
   }
   const handleUpload = () => {
+    console.log("here")
     const myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
