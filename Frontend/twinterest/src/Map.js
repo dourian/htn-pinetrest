@@ -167,6 +167,10 @@ const TrailMap = ({
       >
         {currentLat && currentLng && (
           <MarkerF
+          icon={{
+            url: "https://firebasestorage.googleapis.com/v0/b/impactful-ring-399204.appspot.com/o/marker.png?alt=media&token=7e592f29-d5cb-4c67-a5d1-bfeaa39c0729",
+            scaledSize: new google.maps.Size(50, 50),
+          }}
             key={"current-click"}
             position={{
               lat: currentLat,
