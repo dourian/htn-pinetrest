@@ -15,7 +15,6 @@ function App() {
     console.log(file);
   }
   const handleUpload = () => {
-    console.log("here")
     const myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
@@ -33,52 +32,41 @@ function App() {
     };
 
     fetch("http://localhost:8000/upload", requestOptions)
-      .then((response) => response.text())
+      .then((response) => response.downloadURL)
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
   };
 
   const submitPost = (e) => {
     var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
-    myHeaders.append("Content-Type", "application/json");
+var raw = JSON.stringify({
+  "username": "zbrybro",
+  "location": {
+    "latitude": 50.472966,
+    "longitude": -87.539806
+  },
+  "display_name": "bryant zheng",
+  "image_url": "https://firebasestorage.googleapis.com/v0/b/impactful-ring-399204.appspot.com/o/piatrret.png%20%20%20%20%20%20%202023-9-16%2013%3A50%3A25?alt=media&token=a4e45556-2c04-47af-9952-c1fd8c54b2ce",
+  "datetime": {
+    "seconds": 1694875112,
+    "nanoseconds": 602000000
+  },
+  "content": "bros"
+});
 
-    console.log(caption);
-    console.log(username);
-    handleUpload();
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
 
-    console.log("!");
-
-    const today = new Date();
-
-    var raw = JSON.stringify({
-      username: username,
-      location: {
-        "latitude": 50.472966,
-        "longitude": -87.539806
-      },
-      image_url: url,
-      datetime: {
-        seconds: today.getSeconds(),
-        nanoseconds: today.getMilliseconds(),
-      },
-      content: caption,
-    });
-
-
-    console.log(raw);
-
-
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-    fetch("http://localhost:8000/post", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
+fetch("http://localhost:8000/post", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
   };
 
   return (
