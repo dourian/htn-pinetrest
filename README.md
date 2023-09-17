@@ -20,6 +20,11 @@ with Pinetrest (pine tree + Pinterest 😄), you are able to see what trail cond
 
 our frontend was built with react and tailwind, backend with javascript and firebase, and using the google maps api.
 
+## our use of google cloud
+
+## our use of github
+
+
 ## looking to the future 🤖: expanding
 there is definitely room to build out this app even as a general social media app. we believe that people would enjoy seeing where their friends are and see what areas are popular at that time based on location.
 
