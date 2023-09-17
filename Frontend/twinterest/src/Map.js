@@ -12,7 +12,7 @@ import usePlacesAutocomplete, {
 import "./index.css";
 import Hover from "./Hover";
 
-const GOOGLE_MAPS_API_KEY = "AIzaSyBgx2IEOegL2ILr6cdBzeymb3-6GChTTIc";
+const GOOGLE_MAPS_API_KEY = process.env.apiKey;
 const GOOGLE_MAPS_LIBRARIES = ["places"];
 
 const PlacesAutocomplete = ({ setSelected }) => {

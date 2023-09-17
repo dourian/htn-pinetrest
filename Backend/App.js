@@ -8,7 +8,6 @@ import {
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import bodyParser from "body-parser";
 import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "./firebaseConnector.js";
 import multer from "multer";
 import { doc, setDoc } from "firebase/firestore";
 import cors from "cors";
@@ -17,7 +16,14 @@ const app = express();
 app.use(cors());
 const jsonParser = bodyParser.json();
 
-const app1 = initializeApp(firebaseConfig);
+const app1 = initializeApp({
+  apiKey: process.env.apiKey,
+  authDomain: process.env.authDomain,
+  projectId: process.env.projectId,
+  storageBucket: process.env.projectId,
+  messagingSenderId: process.env.projectId,
+  appId: process.env.appId,
+});
 const db = getFirestore(app1);
 // Initialize Cloud Storage and get a reference to the service
 const storage = getStorage(app1);
