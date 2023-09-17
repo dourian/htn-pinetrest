@@ -1,6 +1,6 @@
 # Pinetrest 🌲: Know Before You Go!
 
-<img width="674" alt="Screenshot 2023-09-17 at 2 41 31 AM" src="https://github.com/dourian/pinetrest/assets/122124464/c1f99c79-b5bd-4254-a39c-e7d7f97ed7e5">
+<img width="674" alt="Screenshot 2023-09-17 at 2 41 31 AM" src="https://github.com/dourian/htn-pinetrest/assets/122124464/2e838b99-649a-4216-994b-0a9750acea46">
 
 Pinetrest is a maps-based social media app targeted towards trailblazers who love the outdoors, allowing users to see and share the conditions of various trails, parks, and lookouts in real-time via posts created by other users.
 
