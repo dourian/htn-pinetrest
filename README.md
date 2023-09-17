@@ -2,39 +2,41 @@
 
 
 
-# Pinetrest 🌲: know before you go!
-pinetrest is a maps-based social media app for outdoorsmen, where users are able to see the conditions of various trails, parks, and lookouts in real-time by other users.
+# Pinetrest 🌲: Know Before You Go!
+Pinetrest is a maps-based social media app targeted towards trailblazers who love the outdoors, allowing users to see and share the conditions of various trails, parks, and lookouts in real-time via posts created by other users.
 
-## meet the team!
-this project was created at hack the north 2023 in waterloo, ontario by dorian chen, rui chen, and bryant zheng.
+## Meet the Team!
+This project was created at Hack the North 2023 in Waterloo, Ontario by Dorian Chen, Rui Chen (no relation), and Bryant Zheng.
 
-## the problem 🔎?
-the photos you see online can't be trusted! this is especially the case for outdoor areas, where different conditions can cause the area to be extremely different from what you expected it to be - often disappointing.
+## The Problem 🔎?
+As browsing twitter has (hopefully) taught us, photos we see online can't be trusted! This is especially the case for outdoor areas, where different seasonal conditions like wildfires or rain can cause any given area to turn on a dime, differing from what you expected it to be - whether making it all the more breathtaking, or more often, disappointing.
 
-## the solution 🧠?
-with Pinetrest (pine tree + Pinterest 😄), you are able to see what trail conditions are like in real-time, as well as make your own posts for others to see!
+## The Solution 🧠?
+With Pinetrest (pine tree + Pinterest 😄), you are able to see what trail conditions are like in real-time before you set off on your hike through public posts created by you and other users.
 
-## our tech stack 💻
+## Our Tech Stack 💻
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
 ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white)
 
-our frontend was built with react and tailwind, backend with javascript and firebase, and using the google maps api.
+Our frontend was built with React, JavaScript, and Tailwind. Our backend features Javascript, Firebase, Cloud Firestore, and the Google Maps API.
 
-## our use of google cloud
+## Our Use of Google Cloud
 While searching for an online database to use for our program, none fit better than Google Cloud. We used Google Cloud through Cloud Firestore, a flexible, scalable, cloud-hosted, NoSQL database for mobile, web, and server development from Firebase and Google Cloud. It was the perfect match to what we were building because of Google Cloud's powerful infrastructure which brings automatic multi-region data replication and strong consistency guarantees. Due to the global nature of our program, we must have extremely consistent service throughout every region, with many of them in low-service areas like national parks, hence Google Cloud's ability to host regional buckets to store images was a must to reduce latency. Cloud Firestore to was designed to handle the toughest database workloads from the world's biggest apps, reassuring us that our large amounts of fetches and uploads would not be a problem.
 
 Moreover, another extremely attractive feature of Google Cloud and Cloud Firestore is the sheer flexibility of datatypes that can be stored. It ranges all the way from geolocations to images, the latter of which was not supported by many SQL databases like CockroachLabs. The versatility of the storable data offered by Google Cloud was the key to making our project possible because of our reliance on fetching and storing images. In addition, their support of nesting of these data types can also prove to be critical in the future, given we scale to require sorting of data based on location, since each nest of data can be a drainage basin for the area which reduces querying time.
 
-## our use of github
-our entire team collaborated on a github repository. using the pull and version control systems of github to the fullest, we were able to efficiently and effectively working together to this successful goal. as well, we were able to create an organized hub for all of our work, including an in-depth README markdown file regarding this project and the experience that we had here! finally, all good applications deserved to be deployed, and what better way to do that with github's own github pages. all in all, we used github in near all aspects of our weekend of hacking here at hack the north 2023.
+## Our Use of GitHub and Collaborative Technology
+Our entire team collaborated on a GitHub repository, using the push, pull, and version control systems of GitHub to the fullest. We were able to efficiently and effectively work together to accomplish our goal thanks to this. In particular, we found a lot of success using plugins like LiveShare in VsCode for collaboration. LiveShare was a Google Docs-esque program that let us all edit the same file in real-time. Our program had a small number of very dense files that served as the controllers for our API, so this made it very convienent for us to all work on the API controller together, one person per query operation, without needing to wait until another person was done. It was a huge boon to our efficiency. All in all, we used collaborative technology in near all aspects of our weekend of hacking here at Hack the North 2023.
 
-## looking to the future 🤖: expanding
-there is definitely room to build out this app even as a general social media app. we believe that people would enjoy seeing where their friends are and see what areas are popular at that time based on location.
+## Looking to the Future 🤖: Expanding
+There is definitely room to build out this app even as a general social media app. We believe that people would enjoy seeing where their friends are and see what's happening over at that spot everyone seems to be swarming towards.
 
-## challenges we ran into 🤕
-the main challenge that we faced early on was that we could not get images to be uploaded correctly to our full-stack application. we tried many different methods and self-taught ourselves many different techniques, however we still were not able to get these images to upload properly.
+Notably, something we'd like to add is for the program to group all the thumbnail images of posts in a certain catchment area for a hotspot and show them all through a vertically scrolling list. This way the user can navigate and browse all the posts without the hassle of overlapping.
+
+## Challenges We Ran Into 🤕
+The main challenge that we faced early on was that in the API call we wrote, we could not extract images in the correct format from our request body. To elaborate, Cloud Firestore is particularly picky about how files are uploaded, only accepting those that are of the form of a JavaScript File. We tried many different methods to work around this to no avail. It was not entirely fruitless, as we self-taught ourselves many different skills and techniques, but we still were not able to extract these images appropriately.
 
 eventually, we sought out the help of a mentor, who gave us a bit of direction. we were then able to find a middleware called multer, and so we were able to overcome this challenge.
 
