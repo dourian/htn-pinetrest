@@ -1,8 +1,6 @@
 import React from "react";
 
 const Hover = ({ markerinfo }) => {
-  console.log("sup");
-
   const datetime = {
     seconds: markerinfo.datetime.seconds,
     nanoseconds: markerinfo.datetime.nanoseconds
