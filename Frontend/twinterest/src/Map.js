@@ -68,6 +68,10 @@ export default function MapWrapper({
   setCurrentLng,
   needRefresh,
   setNeedRefresh,
+  activeMarker,
+  setActiveMarker,
+  displayform,
+  setDisplayForm
 }) {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -84,6 +88,10 @@ export default function MapWrapper({
         setCurrentLng={setCurrentLng}
         needRefresh={needRefresh}
         setNeedRefresh={setNeedRefresh}
+        activeMarker={activeMarker}
+        setActiveMarker={setActiveMarker}
+        displayform={displayform}
+        setDisplayForm={setDisplayForm}
       />
     )
   );
@@ -96,6 +104,10 @@ const TrailMap = ({
   setCurrentLng,
   needRefresh,
   setNeedRefresh,
+  activeMarker,
+  setActiveMarker,
+  displayform,
+  setDisplayForm
 }) => {
   const google = window.google;
   const [selected, setSelected] = useState({
@@ -103,7 +115,6 @@ const TrailMap = ({
     lng: -80.53854722551067,
   });
   const [, setMap] = React.useState(null);
-  const [activeMarker, setActiveMarker] = useState(null);
 
   const handleActiveMarker = (marker) => {
     if (marker === activeMarker) {
@@ -113,8 +124,8 @@ const TrailMap = ({
   };
 
   const containerStyle = {
-    width: "100vw",
-    height: "100vh",
+    width: "100svw",
+    height: "100svh",
   };
 
   const [markers, setMarkers] = useState(null);
@@ -201,7 +212,7 @@ const TrailMap = ({
               >
                 <div
                   key={"info-window-content-" + markerinfo.username}
-                  className="h-16 w-32 rounded-3xl justify-center overflow-hidden"
+                  className="h-16 w-32 justify-center overflow-hidden"
                   onClick={() => {
                     handleActiveMarker(markerinfo.image_url);
                     setSelected({
@@ -225,7 +236,7 @@ const TrailMap = ({
         <></>
       </GoogleMap>
       {activeMarker && markers && (
-        <Hover markerinfo={markers.find((e) => e.image_url === activeMarker)} setActiveMarker={setActiveMarker} />
+        <Hover markerinfo={markers.find((e) => e.image_url === activeMarker)} setActiveMarker={setActiveMarker} setDisplayForm={setDisplayForm}/>
       )}
     </>
   );

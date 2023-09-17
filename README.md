@@ -1,8 +1,7 @@
-![loogo111 (1)](https://github.com/dourian/twinterest/assets/122124464/be1575d1-969a-4ee6-9e83-337271c46846)
-
-
-
 # Pinetrest 🌲: Know Before You Go!
+
+<img width="674" alt="Screenshot 2023-09-17 at 2 41 31 AM" src="https://github.com/dourian/pinetrest/assets/122124464/c1f99c79-b5bd-4254-a39c-e7d7f97ed7e5">
+
 Pinetrest is a maps-based social media app targeted towards trailblazers who love the outdoors, allowing users to see and share the conditions of various trails, parks, and lookouts in real-time via posts created by other users.
 
 ## Meet the Team!
@@ -38,11 +37,11 @@ Notably, something we'd like to add is for the program to group all the thumbnai
 ## Challenges We Ran Into 🤕
 The main challenge that we faced early on was that in the API call we wrote, we could not extract images in the correct format from our request body. To elaborate, Cloud Firestore is particularly picky about how files are uploaded, only accepting those that are of the form of a JavaScript File. We tried many different methods to work around this to no avail. It was not entirely fruitless, as we self-taught ourselves many different skills and techniques, but we still were not able to extract these images appropriately.
 
-eventually, we sought out the help of a mentor, who gave us a bit of direction. we were then able to find a middleware called multer, and so we were able to overcome this challenge.
+Eventually, we sought out the help of a mentor, who gave us a bit of direction. Were then able to find a middleware called multer, and so we were able to overcome this challenge.
 
-this challenge enforced in us that while it is definitely correct to try to solve problems on our own to the best of our abilities, it is also good to know when it is more worthwhile to ask for a bit of help!
+This challenge enforced in us that while it is definitely correct to try to solve problems on our own to the best of our abilities, it is also good to know when it is more worthwhile to ask for a bit of help!
 
-# thanks for reading through! we hope you have a great day - stay kind!
-## total visitor counter:
+# Thanks you for reading through! We hope you have a great day!
+## Total Visitor Counter:
 ![Visitor Count](https://profile-counter.glitch.me/{dourian}/count.svg)
 
