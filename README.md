@@ -1,7 +1,5 @@
 <img width="462" alt="Screenshot_2023-09-16_at_8 29 29_PM-removebg-preview" src="https://github.com/dourian/twinterest/assets/122124464/ab2e6f36-5ce9-4879-97be-d6386e559150">
 
-![Visitor Count](https://profile-counter.glitch.me/{dourian}/count.svg)
-
 # pinetrest 🌲: know before you go!
 pinetrest is a maps-based social media app for outdoorsmen, where users are able to see the conditions of various trails, parks, and lookouts in real-time by other users.
 
@@ -33,3 +31,8 @@ the main challenge that we faced early on was that we could not get images to be
 eventually, we sought out the help of a mentor, who gave us a bit of direction. we were then able to find a middleware called multer, and so we were able to overcome this challenge.
 
 this challenge enforced in us that while it is definitely correct to try to solve problems on our own to the best of our abilities, it is also good to know when it is more worthwhile to ask for a bit of help!
+
+# thanks for reading through! we hope you have a great day - stay kind!
+## total visitor counter:
+![Visitor Count](https://profile-counter.glitch.me/{dourian}/count.svg)
+
