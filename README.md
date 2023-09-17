@@ -3,8 +3,8 @@
 # pinetrest 🌲: know before you go!
 pinetrest is a maps-based social media app for outdoorsmen, where users are able to see the conditions of various trails, parks, and lookouts in real-time by other users.
 
-## meet the team👏!
-<img width="188" alt="Screenshot_2023-09-16_at_9 02 27_PM-removebg-preview" src="https://github.com/dourian/twinterest/assets/122124464/acdd0d4f-3804-4130-9a8f-4cc41c325b95">![Screenshot_2023-09-16_at_9 12 48_PM-removebg-preview](https://github.com/dourian/twinterest/assets/122124464/5f8c3ab2-2ed6-4d50-8be1-b568cae2145a)
+## meet the team!
+<img width="188" alt="Screenshot_2023-09-16_at_9 02 27_PM-removebg-preview" src="https://github.com/dourian/twinterest/assets/122124464/acdd0d4f-3804-4130-9a8f-4cc41c325b95">
 
 this project was created at hack the north 2023 in waterloo, on by dorian chen, frank chen, and bryant zheng.
 
@@ -31,3 +31,8 @@ the main challenge that we faced early on was that we could not get images to be
 eventually, we sought out the help of a mentor, who gave us a bit of direction. we were then able to find a middleware called multer, and so we were able to overcome this challenge.
 
 this challenge enforced in us that while it is definitely correct to try to solve problems on our own to the best of our abilities, it is also good to know when it is more worthwhile to ask for a bit of help!
+
+# thanks for reading through! we hope you have a great day - stay kind!
+## total visitor counter:
+![Visitor Count](https://profile-counter.glitch.me/{dourian}/count.svg)
+
