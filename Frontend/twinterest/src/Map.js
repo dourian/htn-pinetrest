@@ -208,7 +208,7 @@ const TrailMap = ({
               >
                 <div
                   key={"info-window-content-" + markerinfo.username}
-                  className="h-16 w-32 rounded-3xl justify-center overflow-hidden"
+                  className="h-16 w-32 justify-center overflow-hidden"
                   onClick={() => {
                     handleActiveMarker(markerinfo.image_url);
                     setSelected({
