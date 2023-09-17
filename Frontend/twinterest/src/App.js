@@ -5,6 +5,7 @@ function App() {
   const [file, setFile] = useState("");
   const [username, setUsername] = useState("");
   const [caption, setCaption] = useState("");
+  const [url, setURL] = useState("");
   const [displayform, setDisplayForm] = useState(false);
   const [currentLat, setCurrentLat] = useState(0);
   const [currentLng, setCurrentLng] = useState(0);
@@ -32,7 +33,7 @@ function App() {
 
     fetch("http://localhost:8000/upload", requestOptions)
       .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((result) => setURL(result.downloadURL))
       .catch((error) => console.log("error", error));
   };
 
@@ -40,35 +41,43 @@ function App() {
     var myHeaders = new Headers();
 
     myHeaders.append("Content-Type", "application/json");
-    handleUpload().then((res) => {
-      console.log("!");
-      const today = new Date();
-      console.log(res.downloadURL);
-      var raw = JSON.stringify({
-        username: username,
-        location: {
-          latitude: currentLat,
-          longitude: currentLng,
-        },
-        image_url: res.downloadURL,
-        datetime: {
-          seconds: today.getSeconds(),
-          nanoseconds: today.getMilliseconds(),
-        },
-        content: caption,
-      });
-      console.log(raw);
-      var requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
-      };
-      fetch("http://localhost:8000/post", requestOptions)
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.log("error", error));
+
+    console.log(caption);
+    console.log(username);
+    handleUpload();
+
+    console.log("!");
+
+    const today = new Date();
+
+    var raw = JSON.stringify({
+      username: username,
+      location: {
+        "latitude": 50.472966,
+        "longitude": -87.539806
+      },
+      image_url: url,
+      datetime: {
+        seconds: today.getSeconds(),
+        nanoseconds: today.getMilliseconds(),
+      },
+      content: caption,
     });
+
+
+    console.log(raw);
+
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+    fetch("http://localhost:8000/post", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
   };
 
   return (
