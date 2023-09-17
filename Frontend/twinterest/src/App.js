@@ -40,15 +40,14 @@ function App() {
     var myHeaders = new Headers();
 
     myHeaders.append("Content-Type", "application/json");
-    handleUpload().then((res) => {
+    handleUpload.then((res) => {
       console.log(res.downloadURL);
       var raw = JSON.stringify({
         username: username,
         location: {
-          latitude: 49.472966,
-          longitude: -87.539806,
+          latitude: currentLat,
+          longitude: currentLng,
         },
-        display_name: username,
         image_url: res.downloadURL,
         datetime: {
           seconds: 1694875112,
@@ -63,7 +62,7 @@ function App() {
         body: raw,
         redirect: "follow",
       };
-
+      console.log("!");
       fetch("http://localhost:8000/post", requestOptions)
         .then((response) => response.text())
         .then((result) => console.log(result))
