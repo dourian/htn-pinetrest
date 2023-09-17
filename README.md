@@ -5,7 +5,8 @@ pinetrest is a maps-based social media app for outdoorsmen, where users are able
 
 ## meet the team👏!
 this project was created at hack the north 2023 in waterloo, on by dorian chen, frank chen, and bryant zheng.
-<img width="188" alt="Screenshot_2023-09-16_at_9 02 27_PM-removebg-preview" src="https://github.com/dourian/twinterest/assets/122124464/acdd0d4f-3804-4130-9a8f-4cc41c325b95">
+<img width="188" alt="Screenshot_2023-09-16_at_9 02 27_PM-removebg-preview" src="https://github.com/dourian/twinterest/assets/122124464/acdd0d4f-3804-4130-9a8f-4cc41c325b95"><img width="155" alt="Screenshot_2023-09-16_at_9 04 18_PM-removebg-preview" src="https://github.com/dourian/twinterest/assets/122124464/2f86ecba-a512-4246-baf4-dbe8eeeea0ca">
+
 
 ## the problem 🔎?
 the photos you see online can't be trusted! this is especially the case for outdoor areas, where different conditions can cause the area to be extremely different from what you expected it to be - often disappointing.
