@@ -18,6 +18,7 @@ With Pinetrest (pine tree + Pinterest 😄), you are able to see what trail cond
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
 ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 
 Our frontend was built with React, JavaScript, and Tailwind. Our backend features Javascript, Firebase, Cloud Firestore, and the Google Maps API.
 
