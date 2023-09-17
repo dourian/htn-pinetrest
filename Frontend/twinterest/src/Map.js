@@ -64,14 +64,13 @@ export default function MapWrapper({
   currentLng,
   setCurrentLng,
 }) {
-  const libraries = ["places"];
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyBgx2IEOegL2ILr6cdBzeymb3-6GChTTIc",
-    libraries,
+    libraries: ["places"]
   });
   const google = window.google;
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState({lat: 0, lng: 0});
   const [map, setMap] = React.useState(null);
   const [activeMarker, setActiveMarker] = useState(null);
 
@@ -128,7 +127,10 @@ export default function MapWrapper({
           setActiveMarker(null);
           setCurrentLat(ev.latLng.lat());
           setCurrentLng(ev.latLng.lng());
-          setSelected(ev.latLng.lat(), ev.latLng.lng());
+        //   const tlat = parseFloat(ev.latLng.lat());
+        //   const tlng = parseFloat(ev.latLng.lng());
+        //   console.log(tlat, tlng)
+          setSelected({lat: ev.latLng.lat(), lng: ev.latLng.lng()});
         }}
         options={{ disableDefaultUI: true, mapId: "10561e5854fbba2e" }}
       >
@@ -164,7 +166,10 @@ export default function MapWrapper({
               >
                 <div
                   className="h-16 w-32 rounded-3xl justify-center overflow-hidden"
-                  onClick={() => handleActiveMarker(markerinfo.image_url)}
+                  onClick={() => {
+                    handleActiveMarker(markerinfo.image_url);
+                    setSelected({lat: markerinfo.location.latitude, lng: markerinfo.location.longitude});
+                }}
                 >
                   <img
                     src={markerinfo.image_url}
