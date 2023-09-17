@@ -11,6 +11,8 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import "./index.css";
 import Hover from "./Hover";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const GOOGLE_MAPS_API_KEY = process.env.apiKey;
 const GOOGLE_MAPS_LIBRARIES = ["places"];
