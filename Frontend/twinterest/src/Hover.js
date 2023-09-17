@@ -33,13 +33,13 @@ const Hover = ({ markerinfo, setActiveMarker, setDisplayForm }) => {
         onClick={() => setActiveMarker(null)}
         className="h-5 w-5 absolute right-5"
       />
-      <div className="grid grid-cols-5 gap-4t">
+      <div className="flex flex-row">
         <img
           alt=""
           className="h-14 w-14 md:h-20 md:w-20 rounded-full"
           src={pfps[Math.floor(Math.random() * 6)]}
         ></img>
-        <div className="col-span-4">
+        <div className="flex flex-col ml-3">
           <p className="text-sm font-medium">{markerinfo.display_name}</p>
           <p className="text-sm font-normal italic">@{markerinfo.username}</p>
         </div>
