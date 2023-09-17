@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TrailMap from "./Map";
 import { AiOutlineClose } from "react-icons/ai";
 // import handleUpload from '../Backend/firebaseConnector.js';
@@ -8,22 +8,31 @@ function App() {
   const [displayName, setDisplayName] = useState("");
   const [caption, setCaption] = useState("");
   const [displayform, setDisplayForm] = useState(false);
+  const [activeMarker, setActiveMarker] = useState(null);
   const [currentLat, setCurrentLat] = useState(0);
   const [currentLng, setCurrentLng] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [needRefresh, setNeedRefresh] = useState(false);
   const [profile, setProfile] = useState("");
 
-  const pfps = ["https://i.kym-cdn.com/photos/images/newsfeed/002/652/460/d70.jpg",
-                "https://pbs.twimg.com/media/FJAm5eCXIAkUDHn?format=png&name=small",
-                "https://pbs.twimg.com/media/F5xQ2USWwAAkK0a?format=png&name=small",
-                "https://pbs.twimg.com/media/F5FawLjXsAA7RSU?format=jpg&name=900x900",
-                "https://pbs.twimg.com/media/F47gB3rWoAAB7id?format=jpg&name=small",
-                "https://pbs.twimg.com/media/F4y1NTSXIAgBT77?format=png&name=small"]
+  const pfps = [
+    "https://i.kym-cdn.com/photos/images/newsfeed/002/652/460/d70.jpg",
+    "https://pbs.twimg.com/media/FJAm5eCXIAkUDHn?format=png&name=small",
+    "https://pbs.twimg.com/media/F5xQ2USWwAAkK0a?format=png&name=small",
+    "https://pbs.twimg.com/media/F5FawLjXsAA7RSU?format=jpg&name=900x900",
+    "https://pbs.twimg.com/media/F47gB3rWoAAB7id?format=jpg&name=small",
+    "https://pbs.twimg.com/media/F4y1NTSXIAgBT77?format=png&name=small",
+  ];
 
   function handleChange(event) {
     setFile(event.target.files[0]);
   }
+
+  useEffect(() => {
+    if (displayform) {
+      setActiveMarker(null);
+    }
+  }, [displayform]);
 
   const submitPost = () => {
     setIsLoading(true);
@@ -108,11 +117,11 @@ function App() {
     return { seconds, nanoseconds };
   };
 
-  const formDisplayer =()=> {
+  const formDisplayer = () => {
     const index = Math.floor(Math.random() * 6);
     setProfile(pfps[index]);
     setDisplayForm(true);
-  }
+  };
 
   return (
     <div className="App overf">
@@ -123,6 +132,10 @@ function App() {
         setCurrentLng={setCurrentLng}
         needRefresh={needRefresh}
         setNeedRefresh={setNeedRefresh}
+        activeMarker={activeMarker}
+        setActiveMarker={setActiveMarker}
+        displayform={displayform}
+        setDisplayForm={setDisplayForm}
       />
 
       {!displayform && (
@@ -141,11 +154,14 @@ function App() {
       )}
 
       {displayform && (
-        <div className="h-1/2 w-full bg-white bottom-0 absolute rounded-t-xl p-5">
+        <div className="h-4/9 sm:h-2/5 w-full bg-white bottom-0 absolute rounded-t-xl p-5">
           <AiOutlineClose
             onClick={() => setDisplayForm(false)}
             className="h-5 w-5 absolute right-5"
           />
+          <p className="w-full text-center text-slate-500"> 
+            {currentLat.toFixed(4)}, {currentLng.toFixed(4)}
+          </p>
           <div className="flex flex-row mt-6">
             <img
               alt=""

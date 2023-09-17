@@ -1,7 +1,8 @@
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
-const Hover = ({ markerinfo, setActiveMarker }) => {
+const Hover = ({ markerinfo, setActiveMarker, setDisplayForm }) => {
+  setDisplayForm(false);
   const datetime = {
     seconds: markerinfo.datetime.seconds,
     nanoseconds: markerinfo.datetime.nanoseconds,
