@@ -3,7 +3,7 @@
 # pinetrest 🌲: know before you go!
 pinetrest is a maps-based social media app for outdoorsmen, where users are able to see the conditions of various trails, parks, and lookouts in real-time by other users.
 
-## meet the team👏!
+## meet the team!![waving hand](https://github.com/dourian/twinterest/assets/122124464/1e7242f8-724e-4990-a6fc-2e5135394375)
 <img width="188" alt="Screenshot_2023-09-16_at_9 02 27_PM-removebg-preview" src="https://github.com/dourian/twinterest/assets/122124464/acdd0d4f-3804-4130-9a8f-4cc41c325b95">
 
 this project was created at hack the north 2023 in waterloo, on by dorian chen, frank chen, and bryant zheng.
