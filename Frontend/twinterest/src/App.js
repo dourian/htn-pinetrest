@@ -33,7 +33,7 @@ function App() {
 
     fetch("http://localhost:8000/upload", requestOptions)
       .then((response) => response.text())
-      .then((result) => setURL(result.downloadURL))
+      .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
   };
 
