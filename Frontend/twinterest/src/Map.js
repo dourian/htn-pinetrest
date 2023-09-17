@@ -12,6 +12,9 @@ import usePlacesAutocomplete, {
 import "./index.css";
 import Hover from "./Hover";
 
+const GOOGLE_MAPS_API_KEY = "AIzaSyBgx2IEOegL2ILr6cdBzeymb3-6GChTTIc";
+const GOOGLE_MAPS_LIBRARIES = ["places"];
+
 const PlacesAutocomplete = ({ setSelected }) => {
   const {
     ready,
@@ -23,14 +26,14 @@ const PlacesAutocomplete = ({ setSelected }) => {
 
   const handleSelect = async (address) => {
     setValue(address, false);
-    clearSuggestions();
     const results = await getGeocode({ address });
     const { lat, lng } = await getLatLng(results[0]);
     setSelected({ lat, lng });
+    clearSuggestions();
   };
 
   return (
-    <form className={`drop_shadow w-full absolute z-10 top-5 items-center`}>
+    <div className={`drop_shadow w-full absolute z-10 top-5 items-center`}>
       <label>
         <input
           className={`border-[2px] rounded-lg mx-4 py-1 px-4 h-[50px] w-11/12`} // Change w-10/12 to w-full
@@ -54,7 +57,7 @@ const PlacesAutocomplete = ({ setSelected }) => {
           ))}
         </div>
       )}
-    </form>
+    </div>
   );
 };
 
@@ -63,15 +66,43 @@ export default function MapWrapper({
   setCurrentLat,
   currentLng,
   setCurrentLng,
+  needRefresh,
+  setNeedRefresh,
 }) {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyBgx2IEOegL2ILr6cdBzeymb3-6GChTTIc",
-    libraries: ["places"]
+    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+    libraries: GOOGLE_MAPS_LIBRARIES,
   });
+
+  return (
+    isLoaded && (
+      <TrailMap
+        currentLat={currentLat}
+        currentLng={currentLng}
+        setCurrentLat={setCurrentLat}
+        setCurrentLng={setCurrentLng}
+        needRefresh={needRefresh}
+        setNeedRefresh={setNeedRefresh}
+      />
+    )
+  );
+}
+
+const TrailMap = ({
+  currentLat,
+  setCurrentLat,
+  currentLng,
+  setCurrentLng,
+  needRefresh,
+  setNeedRefresh,
+}) => {
   const google = window.google;
-  const [selected, setSelected] = useState({lat: 0, lng: 0});
-  const [map, setMap] = React.useState(null);
+  const [selected, setSelected] = useState({
+    lat: 43.47027710637713,
+    lng: -80.53854722551067,
+  });
+  const [, setMap] = React.useState(null);
   const [activeMarker, setActiveMarker] = useState(null);
 
   const handleActiveMarker = (marker) => {
@@ -85,18 +116,19 @@ export default function MapWrapper({
     width: "100vw",
     height: "100vh",
   };
-  const center = {
-    lat: 43.473176,
-    lng: -80.539849,
-  };
 
   const [markers, setMarkers] = useState(null);
-  const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-    setMap(map);
-  }, []);
-  const onUnmount = React.useCallback(function callback(map) {
+
+  const onLoad = React.useCallback(
+    function callback(map) {
+      const bounds = new window.google.maps.LatLngBounds(selected);
+      map.fitBounds(bounds);
+      setMap(map);
+    },
+    [selected]
+  );
+
+  const onUnmount = React.useCallback(function callback() {
     setMap(null);
   }, []);
 
@@ -110,16 +142,18 @@ export default function MapWrapper({
       .then((response) => response.text())
       .then((result) => setMarkers(JSON.parse(result)))
       .catch((error) => console.log("error", error));
-  }, []);
 
-  return isLoaded ? (
+    setNeedRefresh(false);
+  }, [needRefresh, setNeedRefresh]);
+
+  return (
     <>
       <div className="places-container">
         <PlacesAutocomplete setSelected={setSelected} />
       </div>
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={selected ? { lat: selected.lat, lng: selected.lng } : center}
+        center={selected}
         defaultZoom={3}
         onLoad={onLoad}
         onUnmount={onUnmount}
@@ -127,10 +161,7 @@ export default function MapWrapper({
           setActiveMarker(null);
           setCurrentLat(ev.latLng.lat());
           setCurrentLng(ev.latLng.lng());
-        //   const tlat = parseFloat(ev.latLng.lat());
-        //   const tlng = parseFloat(ev.latLng.lng());
-        //   console.log(tlat, tlng)
-          setSelected({lat: ev.latLng.lat(), lng: ev.latLng.lng()});
+          setSelected({ lat: ev.latLng.lat(), lng: ev.latLng.lng() });
         }}
         options={{ disableDefaultUI: true, mapId: "10561e5854fbba2e" }}
       >
@@ -144,10 +175,9 @@ export default function MapWrapper({
           />
         )}
         {markers?.map((markerinfo) => (
-          <>
+          <React.Fragment key={markerinfo.username}>
             <MarkerF
-              key={markerinfo.username}
-              //   z-Index={20}
+              key={"marker-" + markerinfo.username}
               position={{
                 lat: markerinfo.location.latitude,
                 lng: markerinfo.location.longitude,
@@ -158,6 +188,7 @@ export default function MapWrapper({
               }}
             >
               <InfoWindowF
+                key={"info-window-" + markerinfo.username}
                 onCloseClick={() => setActiveMarker(null)}
                 position={{
                   lat: markerinfo.location.latitude,
@@ -165,28 +196,33 @@ export default function MapWrapper({
                 }}
               >
                 <div
+                  key={"info-window-content-" + markerinfo.username}
                   className="h-16 w-32 rounded-3xl justify-center overflow-hidden"
                   onClick={() => {
                     handleActiveMarker(markerinfo.image_url);
-                    setSelected({lat: markerinfo.location.latitude, lng: markerinfo.location.longitude});
-                }}
+                    setSelected({
+                      lat: markerinfo.location.latitude,
+                      lng: markerinfo.location.longitude,
+                    });
+                  }}
                 >
                   <img
+                    alt=""
                     src={markerinfo.image_url}
                     className=" w-full markerinfo"
+                    key={"marker-image-" + markerinfo.username}
                   ></img>
                 </div>
               </InfoWindowF>
             </MarkerF>
-          </>
+          </React.Fragment>
         ))}
+
         <></>
       </GoogleMap>
       {activeMarker && markers && (
-        <Hover markerinfo={markers.find((e) => e.image_url == activeMarker)} />
+        <Hover markerinfo={markers.find((e) => e.image_url === activeMarker)} />
       )}
     </>
-  ) : (
-    <></>
   );
-}
+};
