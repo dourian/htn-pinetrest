@@ -11,11 +11,11 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import "./index.css";
 import Hover from "./Hover";
-import * as dotenv from "dotenv";
-dotenv.config();
 
-const GOOGLE_MAPS_API_KEY = process.env.apiKey;
+const GOOGLE_MAPS_API_KEY = "AIzaSyABMFfN6vlCq3Y2RVRZ2rTn1pSQknN4rz4";
 const GOOGLE_MAPS_LIBRARIES = ["places"];
+
+console.log(GOOGLE_MAPS_API_KEY)
 
 const PlacesAutocomplete = ({ setSelected }) => {
   const {

@@ -12,22 +12,15 @@ import multer from "multer";
 import { doc, setDoc } from "firebase/firestore";
 import cors from "cors";
 import * as dotenv from "dotenv";
+import { firebaseConfig } from "./firebaseConnector.js";
 
 dotenv.config();
 const app = express();
 app.use(cors());
 const jsonParser = bodyParser.json();
 
-const app1 = initializeApp({
-  apiKey: process.env.apiKey,
-  authDomain: process.env.authDomain,
-  projectId: process.env.projectId,
-  storageBucket: process.env.projectId,
-  messagingSenderId: process.env.projectId,
-  appId: process.env.appId,
-});
+const app1 = initializeApp(firebaseConfig);
 
-console.log(app1)
 const db = getFirestore(app1);
 // Initialize Cloud Storage and get a reference to the service
 const storage = getStorage(app1);
