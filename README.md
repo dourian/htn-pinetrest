@@ -9,7 +9,7 @@ the photos you see online can't be trusted! this is especially the case for outd
 ## the solution 🧠?
 with pinetrest (pine tree + pintrest 😄), you are able to see what trail conditions are like in real-time, as well as make your own posts for others to see!
 
-![mojis2](https://github.com/dourian/twinterest/assets/122124464/27784694-d0e7-4aa6-a709-8979858b0b2d)
+![mojis3](https://github.com/dourian/twinterest/assets/122124464/fe1222ee-9c66-45b3-95ed-6b5511303853)
 
 ## our tech stack 💻
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
